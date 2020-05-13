@@ -98,7 +98,7 @@ class Neuron:
                 qtdEpocasSemMelhoria = 0
             else:
                 qtdEpocasSemMelhoria += 1
-                if qtdEpocasSemMelhoria/qtdMaxEpocas >= 0.5:
+                if qtdEpocasSemMelhoria/qtdMaxEpocas >= percentualSemMelhora:
                     self.motivoParada = "Sem melhora na acurácia há " + str(percentualSemMelhora*100) + "% do total de épocas."
                     break
         

@@ -9,7 +9,7 @@ class LMS:
 	def __init__(self, dados, target):
 		dadosComBias = self.__adicionarDimensaoBias(dados)
 		self.__calcularPesos(dadosComBias, target)
-		self.__calcularMSE(dadosComBias, target, self.pesos)
+		self.__calcularMSE(dadosComBias, target)
 		self.RMSE = self.MSE**(1/2)
 
 	def __adicionarDimensaoBias(self, vetorDados):    
@@ -22,13 +22,24 @@ class LMS:
 	def __calcularPesos(self, dadosComBias, target):
 		self.pesos = np.matmul(np.matmul(np.linalg.inv(np.matmul(dadosComBias.T, dadosComBias)), dadosComBias.T), target.T)
 
-	def __calcularMSE(self, dadosComBias, target, pesos):
+	def __calcularMSE(self, dadosComBias, target):
 		vetorErros = []	    
 		for dadoAtual, targetAtual in zip(dadosComBias, target):
 			erroAtual = targetAtual - np.matmul(self.pesos.T, dadoAtual)
 			vetorErros.append(erroAtual)	        
 		vetorErros = np.array(vetorErros)	    
 		self.MSE = np.matmul(vetorErros.T, vetorErros)/len(target)
+
+	def predizer(self, xTeste):
+		# ADICIONANDO UMA DIMENSAO PARA O BIAS
+		xTeste = self.__adicionarDimensaoBias(xTeste)
+		
+		# PREDIZENDO CADA DADO
+		yPred = []        
+		for dadoAtual in xTeste:
+			yPred.append(np.matmul(self.pesos.T, dadoAtual))
+			
+		return yPred
 
 	def obterEixosParaPlotarRetaLMS(self, dadosOriginais):
 		# OBVIAMENTE SO FUNCIONA PARA CASOS DE UMA UNICA FEATURE
