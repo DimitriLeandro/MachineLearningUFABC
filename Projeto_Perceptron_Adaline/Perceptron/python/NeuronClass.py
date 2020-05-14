@@ -125,7 +125,7 @@ class Neuron:
         return epocas, arrayAcuracias, matrizEvolucaoPesos
 
     def __empurraozinho(self, xTreinamento, yTreinamento):
-        print("b")
+        # print("b")
         # Como o neuronio e um classificador binario, se os pesos aleatorios definidos no comeco
         # chegarem em uma acuracia de treinamento de menos de 50%, entao eu posso dar um empurraozinho
         # multiplicando todos os pesos por -1. Isso tudo antes de comecar o treinamento em si.

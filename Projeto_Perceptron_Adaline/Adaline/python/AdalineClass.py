@@ -89,6 +89,12 @@ class Adaline:
             # SE NAO TIVER CONVERGIDO EU CONTINUO O ALGORITMO E AJUSTO OS PESOS DESSA EPOCA
             self.__atualizarPesosUnicaEpoca(xTreinamento, yTreinamento, taxaAprendizagem)
 
+            # VERIFICANDO SE NAO EXPLODIU
+            if np.isnan(self.pesos).any() == True:
+                print("A TAXA DE APRENDIZAGEM ESTÁ MUITO ALTA! REINICIE O ALGORITMO!")
+                motivoParada = "Erro! Taxa de aprendizagem muito alta!"
+                break
+
         if epocas >= qtdMaxEpocas:
             motivoParada = "A quantidade máxima de épocas foi atingida."
 
